@@ -19,31 +19,27 @@ export function DownloadForm() {
 
         try {
             const cleanOrderId = orderId.trim()
-            // Direct download via our secure proxy API
-            const response = await fetch(`/api/download?orderId=${cleanOrderId}`, {
-                method: 'GET',
-            })
 
-            if (!response.ok) {
-                if (response.status === 404) throw new Error("Commande introuvable.")
-                if (response.status === 403) throw new Error("Paiement non validé ou accès non accordé.")
-                throw new Error("Erreur lors du téléchargement.")
+            // Step 1: Pre-check access (this doesn't count as a download yet)
+            const checkResponse = await fetch(`/api/download?orderId=${cleanOrderId}&check=true`)
+
+            if (!checkResponse.ok) {
+                const data = await checkResponse.json()
+                throw new Error(data.error || "Erreur de vérification.")
             }
 
-            // If successful, trigger the file download from the blob stream
-            const blob = await response.blob()
-            const url = window.URL.createObjectURL(blob)
-            const a = document.createElement('a')
-            a.href = url
-            a.download = "Formation-Chine-Afrique.pdf"
-            document.body.appendChild(a)
-            a.click()
-            window.URL.revokeObjectURL(url)
-            document.body.removeChild(a)
+            // Step 2: Trigger native browser download
+            // Using window.location.href makes the browser's download manager appear immediately
+            // and handle the progress UI natively.
+            window.location.href = `/api/download?orderId=${cleanOrderId}`
+
+            // Note: We don't need to do anything else, the browser takes over.
+            // We can clear loading immediately or after a short delay
+            setTimeout(() => setLoading(false), 2000)
+            return
 
         } catch (err: any) {
             setError(err.message || "Une erreur est survenue")
-        } finally {
             setLoading(false)
         }
     }

@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams
     const rawOrderId = searchParams.get('orderId')
     const orderId = rawOrderId?.trim()
+    const isCheckOnly = searchParams.get('check') === 'true'
 
     if (!orderId) {
         return NextResponse.json({ error: 'Order ID required' }, { status: 400 })
@@ -42,6 +43,11 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({
                 error: 'Limite de téléchargement atteinte. Chaque commande ne permet qu\'un seul téléchargement unique.'
             }, { status: 403 })
+        }
+
+        // Return early if this is just a pre-check
+        if (isCheckOnly) {
+            return NextResponse.json({ success: true, message: 'Access verified' }, { status: 200 })
         }
 
         // 2. Fetch File from Blob Storage (Streaming)
