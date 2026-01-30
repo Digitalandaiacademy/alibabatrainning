@@ -57,7 +57,7 @@ export function CoursePreview() {
                       <DialogContent className="max-w-4xl w-full p-0 overflow-hidden border-none bg-transparent shadow-none">
                         <div className="relative w-full h-auto">
                           <img
-                            src="/couverture.png"
+                            src="/couverture.jpg"
                             alt="Couverture Formation Chine Afrique"
                             className="w-full h-auto rounded-lg"
                           />
@@ -70,7 +70,7 @@ export function CoursePreview() {
                       <DialogTrigger asChild>
                         <div className="relative aspect-video w-full h-full flex items-center justify-center bg-gray-50 rounded-lg cursor-pointer group overflow-hidden">
                           <img
-                            src="/sommaire.png"
+                            src="/sommaire.jpg"
                             alt="Aperçu du sommaire en image"
                             className="object-cover w-full h-full rounded-lg shadow-md transition-transform duration-300 group-hover:scale-105"
                           />
