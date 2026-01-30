@@ -23,10 +23,10 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        // 1. Verify Access
+        // 1. Verify Access and Download Count
         const { data: order, error } = await supabase
             .from('orders')
-            .select('access_granted, status')
+            .select('access_granted, status, download_count')
             .eq('id', orderId)
             .single()
 
@@ -38,21 +38,45 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ error: 'Access denied. Payment not yet verified.' }, { status: 403 })
         }
 
-        // 2. Fetch File from Blob Storage
+        if ((order.download_count || 0) >= 1) {
+            return NextResponse.json({
+                error: 'Limite de téléchargement atteinte. Chaque commande ne permet qu\'un seul téléchargement unique.'
+            }, { status: 403 })
+        }
+
+        // 2. Fetch File from Blob Storage (Streaming)
         const fileResponse = await fetch(FILE_URL)
         if (!fileResponse.ok) {
             throw new Error(`Failed to fetch file from storage: ${fileResponse.statusText}`)
         }
 
-        const fileBlob = await fileResponse.blob()
+        if (!fileResponse.body) {
+            throw new Error('Response body is empty')
+        }
 
-        // 3. Return File to User
+        // 3. Mark as downloaded BEFORE sending (to prevent race conditions/multiple clicks)
+        const { error: updateError } = await supabase
+            .from('orders')
+            .update({ download_count: (order.download_count || 0) + 1 })
+            .eq('id', orderId)
+
+        if (updateError) {
+            console.error('Failed to update download count:', updateError)
+        }
+
+        // 4. Return Streaming Response to User
+        // This is much faster and avoids "Failed to fetch" for large files
         const headers = new Headers()
         headers.set('Content-Type', 'application/pdf')
         headers.set('Content-Disposition', 'attachment; filename="Formation-Chine-Afrique.pdf"')
-        headers.set('Content-Length', fileBlob.size.toString())
 
-        return new NextResponse(fileBlob, {
+        // Use the content-length from the original response if available
+        const contentLength = fileResponse.headers.get('content-length')
+        if (contentLength) {
+            headers.set('Content-Length', contentLength)
+        }
+
+        return new NextResponse(fileResponse.body, {
             status: 200,
             headers,
         })

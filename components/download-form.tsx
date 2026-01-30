@@ -56,6 +56,10 @@ export function DownloadForm() {
                         <CardTitle className="text-2xl text-center">Espace de Téléchargement</CardTitle>
                         <CardDescription className="text-center">
                             Entrez votre numéro de commande (reçu par email) pour télécharger la formation.
+                            <br />
+                            <span className="text-amber-600 font-semibold block mt-1">
+                                ⚠️ Attention: Un seul téléchargement est autorisé par commande.
+                            </span>
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
