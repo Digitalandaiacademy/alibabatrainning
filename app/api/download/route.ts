@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
         // 1. Verify Access and Download Count
         const { data: order, error } = await supabase
             .from('orders')
-            .select('access_granted, status, download_count')
+            .select('access_granted, status, download_count, first_name, last_name')
             .eq('id', orderId)
             .single()
 
@@ -47,7 +47,12 @@ export async function GET(request: NextRequest) {
 
         // Return early if this is just a pre-check
         if (isCheckOnly) {
-            return NextResponse.json({ success: true, message: 'Access verified' }, { status: 200 })
+            return NextResponse.json({
+                success: true,
+                message: 'Access verified',
+                customerName: `${order.first_name} ${order.last_name}`,
+                orderId: orderId
+            }, { status: 200 })
         }
 
         // 2. Fetch File from Blob Storage (Streaming)
