@@ -15,7 +15,8 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams
-    const orderId = searchParams.get('orderId')
+    const rawOrderId = searchParams.get('orderId')
+    const orderId = rawOrderId?.trim()
 
     if (!orderId) {
         return NextResponse.json({ error: 'Order ID required' }, { status: 400 })

@@ -200,6 +200,7 @@ export function AdminDashboard() {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-border">
+                      <th className="text-left py-3 px-4 font-semibold text-foreground">ID Commande</th>
                       <th className="text-left py-3 px-4 font-semibold text-foreground">Client</th>
                       <th className="text-left py-3 px-4 font-semibold text-foreground">Email</th>
                       <th className="text-left py-3 px-4 font-semibold text-foreground">Téléphone</th>
@@ -213,6 +214,9 @@ export function AdminDashboard() {
                   <tbody>
                     {orders.map(order => (
                       <tr key={order.id} className="border-b border-border hover:bg-muted/50">
+                        <td className="py-3 px-4 text-xs font-mono text-foreground/50 select-all">
+                          {order.id}
+                        </td>
                         <td className="py-3 px-4 text-sm font-medium text-foreground">
                           {order.first_name} {order.last_name}
                         </td>

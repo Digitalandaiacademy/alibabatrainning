@@ -18,8 +18,9 @@ export function DownloadForm() {
         setError('')
 
         try {
+            const cleanOrderId = orderId.trim()
             // Direct download via our secure proxy API
-            const response = await fetch(`/api/download?orderId=${orderId}`, {
+            const response = await fetch(`/api/download?orderId=${cleanOrderId}`, {
                 method: 'GET',
             })
 
@@ -54,7 +55,7 @@ export function DownloadForm() {
                     <CardHeader>
                         <CardTitle className="text-2xl text-center">Espace de Téléchargement</CardTitle>
                         <CardDescription className="text-center">
-                            Entrez votre numéro de commande pour télécharger la formation.
+                            Entrez votre numéro de commande (reçu par email) pour télécharger la formation.
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
