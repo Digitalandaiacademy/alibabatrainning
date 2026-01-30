@@ -84,7 +84,9 @@ export async function verifyDownloadToken(
  * Generate a secure download URL for a customer
  */
 export function generateDownloadUrl(token: string, orderId: string): string {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://alibaba-trainning.da-academy.digital'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL && process.env.NEXT_PUBLIC_APP_URL !== 'http://localhost:3000'
+    ? process.env.NEXT_PUBLIC_APP_URL
+    : 'https://alibaba-trainning.da-academy.digital'
   return `${baseUrl}/api/download/pdf?token=${token}&orderId=${orderId}`
 }
 

@@ -98,7 +98,7 @@ export async function sendDownloadEmail(
               </div>
               
               <p style="text-align: center;">
-                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://alibaba-trainning.da-academy.digital'}/download" class="button">Accéder à la page de téléchargement</a>
+                <a href="${process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL}/download` : 'https://alibaba-trainning.da-academy.digital/download'}" class="button">Accéder à la page de téléchargement</a>
               </p>
               
               <p>Une fois sur la page, entrez simplement votre numéro de commande ci-dessus.</p>
