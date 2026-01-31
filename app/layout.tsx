@@ -11,14 +11,21 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr text-foreground">
-      <body className="antialiased min-h-screen bg-background text-foreground font-sans">
+    <html lang="fr" className="overflow-x-hidden">
+      <body className="antialiased min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
         {children}
         <Analytics />
       </body>
