@@ -127,17 +127,42 @@ export function CoursePreview() {
 
           {/* Purchase Section */}
           <div className="bg-card rounded-lg shadow-lg p-8 border border-border h-fit sticky top-24">
-            <h3 className="text-2xl font-bold text-foreground mb-4">Formation Complète</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-6">Formation Complète</h3>
 
-            <div className="space-y-4 mb-8">
-              <div className="flex justify-between items-baseline">
+            <div className="space-y-6 mb-8">
+              <div className="flex justify-between items-baseline border-b border-border pb-4">
                 <span className="text-foreground/70">Prix</span>
                 <span className="text-3xl font-bold text-primary">5000 FCFA</span>
               </div>
-              <div className="text-sm text-foreground/60 space-y-1">
-                <p>✓ Accès à vie au PDF</p>
-                <p>✓ Mises à jour futures</p>
-                <p>✓ Support par email</p>
+
+              <div className="space-y-4">
+                <h4 className="font-semibold text-foreground text-lg">Ce que tu obtiens :</h4>
+
+                <div className="space-y-3 text-sm text-foreground/80">
+                  <div className="flex gap-3 items-start p-3 rounded-lg bg-primary/5 border border-primary/20">
+                    <span className="text-xl flex-shrink-0">📘</span>
+                    <div>
+                      <p className="font-semibold text-foreground">Achat du livre PDF</p>
+                      <p className="text-xs text-foreground/60">45 pages de contenu détaillé</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 items-start p-3 rounded-lg bg-primary/5 border border-primary/20">
+                    <span className="text-xl flex-shrink-0">📚</span>
+                    <div>
+                      <p className="font-semibold text-foreground">Inscription automatique à la formation en ligne</p>
+                      <p className="text-xs text-foreground/60">Accès à vie avec mises à jour</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 items-start p-3 rounded-lg bg-primary/5 border border-primary/20">
+                    <span className="text-xl flex-shrink-0">🤝</span>
+                    <div>
+                      <p className="font-semibold text-foreground">Accompagnement jusqu'à ton premier achat réussi en Chine</p>
+                      <p className="text-xs text-foreground/60">Support personnalisé</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -148,7 +173,7 @@ export function CoursePreview() {
             </Link>
 
             <p className="text-xs text-foreground/50 text-center">
-              Paiement sécurisé • Livraison instantanée
+              🔒 Paiement sécurisé • 📥 Livraison instantanée
             </p>
           </div>
         </div>
