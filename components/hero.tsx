@@ -8,14 +8,14 @@ export function Hero() {
     <section className="relative overflow-hidden py-20 sm:py-32 lg:py-48">
       {/* Optional Background Image with Gradient Overlay */}
       {/* Uncomment the following lines to add a background image */}
-      {/* <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0">
         <img 
           src="/hero-bg.jpg" 
           alt="Background" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background"></div>
-      </div> */}
+      </div>
 
       {/* Gradient background (used when no image) */}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-primary/10 to-transparent"></div>
